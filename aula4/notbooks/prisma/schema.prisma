@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Notebook {
+  id          Int           @id @default(autoincrement())
+  modelo      String        @db.VarChar(60)
+  marca       String        @db.VarChar(20)
+  processador Processadores
+  preco       Decimal       @db.Decimal(10, 2)
+  quant       Int?          @db.SmallInt
+
+  @@map("notebooks")
+}
+
+enum Processadores {
+  AMD
+  Intel
+}

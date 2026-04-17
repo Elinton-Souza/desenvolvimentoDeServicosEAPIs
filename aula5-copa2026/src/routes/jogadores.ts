@@ -19,9 +19,12 @@ export const jogadorSchema = z.object({
 })
 
 router.get("/", async (req, res) => {
+    
+
     try {
         const jogadores = await prisma.jogador.findMany({
-            include:{ selecao: true}
+            include:{ selecao: true},
+            orderBy: { 'selecaoId': 'asc' }
         })
         
         const jogadores2 = jogadores.map(jogador => ({
@@ -33,6 +36,7 @@ router.get("/", async (req, res) => {
             selecao: jogador.selecao.pais,
             treinador: jogador.selecao.treinador
         }))
+
 
         res.status(200).json(jogadores2)
     } catch (error) {

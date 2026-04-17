@@ -18,7 +18,8 @@ const selecaoSchema = z.object({
 router.get("/", async (req, res) => {
     try {
         const selecoes = await prisma.selecao.findMany({
-            include: { jogadores: true}
+            include: { jogadores: true},
+            orderBy: {'pais': 'asc'}
         })
         res.status(200).json(selecoes)
     } catch (error) {
